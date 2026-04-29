@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Notificador de Pagos Digitales</string>
+    <string name="titulo_app">Notificador de Pagos</string>
+    <string name="estado_activo">SISTEMA OPERATIVO ✅</string>
+    <string name="estado_detenido">SISTEMA DETENIDO ❌</string>
+    <string name="btn_activar_parlante">1. ACTIVAR PARLANTE</string>
+    <string name="btn_optimizar_bateria">2. OPTIMIZAR BATERÍA</string>
+    <string name="btn_probar_voz">3. PROBAR VOZ</string>
+    <string name="guia_titulo">Configuración de Seguridad</string>
+    <string name="guia_mensaje">Si el sistema bloquea la activación:\n\n1. Ve a Ajustes > Aplicaciones.\n2. Selecciona \'Notificador de Pagos\'.\n3. Toca los 3 puntos (arriba a la derecha).\n4. Elige \'Permitir ajustes restringidos\'.\n\nEsto permitirá activar el parlante sin problemas.</string>
+    <string name="btn_entendido">ENTENDIDO</string>
+    <string name="toast_acceso_notificaciones">Abre \'Acceso a notificaciones\'</string>
+    <string name="toast_optimizacion_bateria">Busca \'Optimización de batería\'</string>
+    <string name="servicio_nombre">Servicio de Notificaciones</string>
+    <string name="notif_canal_nombre">Servicio Activo</string>
+    <string name="notif_titulo">Asistente de Pagos</string>
+    <string name="notif_texto">El sistema de voz está activo</string>
+    <string name="prueba_voz_texto">El sistema de voz funciona correctamente</string>
+</resources>
