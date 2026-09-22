@@ -6,4 +6,9 @@
     </style>
 
     <style name="Theme.NotificadorDePagosDigitales" parent="Base.Theme.NotificadorDePagosDigitales" />
+
+    <style name="Theme.NotificadorDePagosDigitales.FullScreen" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>
