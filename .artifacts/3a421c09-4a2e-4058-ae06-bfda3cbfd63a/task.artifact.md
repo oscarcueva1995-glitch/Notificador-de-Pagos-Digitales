@@ -1,3 +1,3 @@
-- [ ] Agregar botón "Invitar a tus Amigos" en activity_main.xml
-- [ ] Implementar la función de compartir con Intent nativo en MainActivity.java
-- [ ] Compilar y probar en el dispositivo
+- [x] Agregar lógica de verificación de suscripción remota en MainActivity.java
+- [x] Controlar la activación/desactivación de la UI según el estado de pago
+- [x] Compilar y verificar el funcionamiento

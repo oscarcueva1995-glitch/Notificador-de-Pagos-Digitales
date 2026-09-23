@@ -69,6 +69,27 @@ public class NotificacionService extends NotificationListenerService implements 
                 tts.setLanguage(new Locale("es"));
             }
 
+            // Configurar género de voz (Hombre / Mujer) según preferencia
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                String tipoVoz = getSharedPreferences("app_prefs", MODE_PRIVATE).getString("voz_genero", "mujer");
+                try {
+                    for (android.speech.tts.Voice voice : tts.getVoices()) {
+                        if (voice.getLocale() != null && voice.getLocale().getLanguage().startsWith("es")) {
+                            String name = voice.getName().toLowerCase();
+                            if (tipoVoz.equals("hombre") && name.contains("male") && !name.contains("female")) {
+                                tts.setVoice(voice);
+                                break;
+                            } else if (tipoVoz.equals("mujer") && (name.contains("female") || name.contains("mujer"))) {
+                                tts.setVoice(voice);
+                                break;
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Error configurando género de voz: " + e.getMessage());
+                }
+            }
+
             // Configurar para que suene como asistente/voz
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_ASSISTANCE_ACCESSIBILITY)
@@ -110,12 +131,25 @@ public class NotificacionService extends NotificationListenerService implements 
         if (isReady && tts != null) {
             Log.d(TAG, "Hablando: " + mensaje);
             
+            // Detener audio anterior y usar QUEUE_FLUSH para evitar acumulación de cola y fugas de memoria
+            try {
+                tts.stop();
+            } catch (Exception e) {}
+
+            // Ajustar tono (pitch) según género de voz seleccionado (Hombre / Mujer)
+            String tipoVoz = getSharedPreferences("app_prefs", MODE_PRIVATE).getString("voz_genero", "mujer");
+            if (tipoVoz.equals("hombre")) {
+                tts.setPitch(0.75f); // Tono grave (Voz de hombre)
+            } else {
+                tts.setPitch(1.15f); // Tono agudo/claro (Voz de mujer)
+            }
+
             // WakeLock para asegurar que el CPU no se duerma a mitad de la frase
             PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
             PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Notificador:HablarLock");
             wl.acquire(5000); // 5 segundos de energía extra
             
-            tts.speak(mensaje, TextToSpeech.QUEUE_ADD, null, "MSG_ID");
+            tts.speak(mensaje, TextToSpeech.QUEUE_FLUSH, null, "MSG_ID");
         } else {
             Log.d(TAG, "TTS no listo. Guardando mensaje en cola.");
             mensajePendiente = mensaje;
@@ -125,10 +159,20 @@ public class NotificacionService extends NotificationListenerService implements 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent != null && "PROBAR_VOZ".equals(intent.getAction())) {
-            new Handler(Looper.getMainLooper()).post(() -> 
-                Toast.makeText(getApplicationContext(), "Probando voz...", Toast.LENGTH_SHORT).show());
-            hablar(getString(R.string.prueba_voz_texto));
+        if (intent != null) {
+            if ("PROBAR_VOZ".equals(intent.getAction())) {
+                new Handler(Looper.getMainLooper()).post(() -> 
+                    Toast.makeText(getApplicationContext(), "Probando voz...", Toast.LENGTH_SHORT).show());
+                hablar(getString(R.string.prueba_voz_texto));
+            } else if ("REINICIAR_TTS".equals(intent.getAction())) {
+                if (tts != null) {
+                    try {
+                        tts.stop();
+                        tts.shutdown();
+                    } catch (Exception e) {}
+                }
+                tts = new TextToSpeech(this, this);
+            }
         }
         return START_STICKY;
     }
@@ -142,12 +186,12 @@ public class NotificacionService extends NotificationListenerService implements 
     private void enviarAPHP(final String titulo, final String texto) {
         new Thread(() -> {
             try {
-                URL url = new URL("http://tu-servidor.com/guardar_pago.php");
+                URL url = new URL("http://backend-yape-pago.infinityfree.me/recibir_yape.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
                 conn.setConnectTimeout(5000);
-                String data = "titulo=" + titulo + "&texto=" + texto;
+                String data = "titulo=" + android.net.Uri.encode(titulo) + "&texto=" + android.net.Uri.encode(texto);
                 OutputStream os = conn.getOutputStream();
                 os.write(data.getBytes());
                 os.flush();

@@ -29,7 +29,35 @@
         android:textColor="#C62828"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginBottom="35dp"/>
+        android:layout_marginBottom="15dp"/>
+
+    <LinearLayout
+        android:id="@+id/layoutCodigoCliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#EFEFEF"
+        android:padding="8dp"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Código de Cliente: "
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCodigoCliente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NPD-0000"
+            android:textColor="#1A237E"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnPermisos"
@@ -64,7 +92,18 @@
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:layout_marginBottom="25dp"/>
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnCambiarVoz"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="🎙️ Cambiar Voz (Hombre / Mujer)"
+        android:backgroundTint="@color/morado_botones"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"/>
 
     <TextView
         android:id="@+id/btnCompartir"
@@ -79,6 +118,58 @@
         android:background="?attr/selectableItemBackground"
         android:padding="8dp"
         android:layout_marginBottom="12dp"/>
+
+    <!-- Banner Dinámico de Soporte y QR de Yape -->
+    <LinearLayout
+        android:id="@+id/cardSoporteQr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_dialog_card"
+        android:padding="12dp"
+        android:elevation="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:backgroundTint="#EDE7F6"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/ic_qr_scanner"
+            android:padding="4dp"
+            android:layout_marginEnd="12dp"
+            android:contentDescription="QR Icon"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Solicitar QR de Yape"
+                android:textColor="#4A148C"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Soporte técnico por WhatsApp 💬"
+                android:textColor="#616161"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_whatsapp"
+            android:contentDescription="WhatsApp"/>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
