@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
         tvEstado = findViewById(R.id.tvEstado);
         Button btnPermisos = findViewById(R.id.btnPermisos);
-        Button btnBateria = findViewById(R.id.btnBateria);
         Button btnProbar = findViewById(R.id.btnProbar);
         Button btnAutoInicio = findViewById(R.id.btnAutoInicio);
+        TextView btnCompartir = findViewById(R.id.btnCompartir);
 
         // 1. Permiso de Notificaciones para Android 13+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -61,15 +61,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // ACCIÓN 2: Optimización de Batería (Abrir lista general)
-        btnBateria.setOnClickListener(v -> {
-            try {
-                Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-                startActivity(intent);
-            } catch (Exception e) {
-                Toast.makeText(this, getString(R.string.toast_optimizacion_bateria), Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
         // ACCIÓN 3: Auto-Inicio y Permisos Especiales (Redmi/Xiaomi)
         btnAutoInicio.setOnClickListener(v -> {
@@ -90,6 +82,20 @@ public class MainActivity extends AppCompatActivity {
                 mInterstitialAd.show(MainActivity.this);
             } else {
                 ejecutarPruebaVoz();
+            }
+        });
+
+        // ACCIÓN 5: Compartir Aplicación
+        btnCompartir.setOnClickListener(v -> {
+            try {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "¡Hola! Te invito a descargar la aplicación Notificador de Pagos Digitales desde Google Play: https://play.google.com/store/apps/details?id=com.asistente.pagosdigitales");
+                sendIntent.setType("text/plain");
+                Intent shareIntent = Intent.createChooser(sendIntent, "Compartir con");
+                startActivity(shareIntent);
+            } catch (Exception e) {
+                Toast.makeText(this, "No se pudo abrir el menú de compartir", Toast.LENGTH_SHORT).show();
             }
         });
 

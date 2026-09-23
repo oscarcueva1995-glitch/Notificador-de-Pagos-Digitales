@@ -1,0 +1,3 @@
+- [ ] Agregar botón "Invitar a tus Amigos" en activity_main.xml
+- [ ] Implementar la función de compartir con Intent nativo en MainActivity.java
+- [ ] Compilar y probar en el dispositivo

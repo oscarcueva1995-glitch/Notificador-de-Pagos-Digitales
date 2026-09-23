@@ -4,7 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="20dp"
+    android:paddingTop="60dp"
+    android:background="@drawable/fondo_pantalla"
     android:gravity="center_horizontal">
 
     <TextView
@@ -12,9 +16,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/titulo_app"
-        android:textSize="24sp"
+        android:textColor="@color/texto_oscuro"
+        android:textSize="26sp"
         android:textStyle="bold"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="25dp"/>
 
     <TextView
         android:id="@+id/tvEstado"
@@ -23,35 +28,57 @@
         android:text="@string/estado_detenido"
         android:textColor="#C62828"
         android:textSize="18sp"
-        android:layout_marginBottom="40dp"/>
+        android:textStyle="bold"
+        android:layout_marginBottom="35dp"/>
 
     <Button
         android:id="@+id/btnPermisos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:text="@string/btn_activar_parlante"
-        android:layout_marginBottom="10dp"/>
+        android:backgroundTint="@color/morado_botones"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"/>
 
-    <Button
-        android:id="@+id/btnBateria"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_optimizar_bateria"
-        android:layout_marginBottom="10dp"/>
+
 
     <Button
         android:id="@+id/btnAutoInicio"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:text="Ajustes de Inicio Automático"
-        android:layout_marginBottom="10dp"/>
+        android:backgroundTint="@color/morado_botones"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"/>
 
     <Button
         android:id="@+id/btnProbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:text="@string/btn_probar_voz"
-        android:layout_marginBottom="10dp"/>
+        android:backgroundTint="@color/morado_botones"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="25dp"/>
+
+    <TextView
+        android:id="@+id/btnCompartir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invitar a tus Amigos"
+        android:textColor="@color/texto_oscuro"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        android:padding="8dp"
+        android:layout_marginBottom="12dp"/>
 
     <View
         android:layout_width="match_parent"
